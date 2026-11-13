@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>漫才シアター作品棚</title>
-</head>
-<body>
-  <h1>漫才シアター 作品棚</h1>
-  <p>書いて笑って、演じて笑って、見て笑う。</p>
-  <p>作品を準備中です。</p>
-  <a href="../">漫才シアターへ戻る</a>
-</body>
-</html>
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>漫才シアター 作品棚</title><style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f6f6f1;color:#20232a;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif}header{background:#1c2534;color:white;padding:32px 22px}header>div,main,footer{max-width:1040px;margin:auto}h1{font-size:clamp(25px,5vw,38px);margin:0 0 9px}header p{margin:0;color:#d9dfe6}main{padding:28px 20px 50px}.hint{font-size:14px;color:#5c626d;line-height:1.8}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:22px;margin-top:22px}.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px #18202c15}.cover{aspect-ratio:4/5;background:#e7e7e7;display:flex;align-items:center;justify-content:center}.cover img{width:100%;height:100%;object-fit:cover}.info{padding:18px}.info h2{font-size:21px;margin:0 0 7px}.meta{color:#626c77;font-size:13px}.desc{font-size:14px;line-height:1.65;min-height:48px}.btn{display:block;text-align:center;background:#196b74;color:white;text-decoration:none;border-radius:9px;padding:11px 8px;font-weight:700}.btn:hover{background:#124c55}.sub{display:block;color:#1c6872;margin-top:12px;font-size:13px;text-align:center}.notice{background:#eaf2f1;border-radius:10px;padding:14px 16px;margin-top:26px;line-height:1.75}footer{padding:0 20px 40px}footer a{color:#1a5d76}
+</style></head><body><header><div><h1>漫才シアター 作品棚</h1><p>書いて笑って、演じて笑って、見て笑う。</p></div></header><main><p class="hint">公開作品からお気に入りの台本を選んでください。今はJSONをダウンロードして、漫才シアターに読み込む方式です。</p><div id="grid" class="grid"><p>作品を読み込み中...</p></div><div class="notice"><b>演じ方</b><br>① 作品の「台本をダウンロード」を押す → ② <a href="../">漫才シアター</a>を開く → ③ 今までどおり「JSON台本を追加・切り替え」で読み込む。<br>※ アプリの既存機能はそのまま利用できます。</div></main><footer><a href="../">← 漫才シアターへ戻る</a></footer><script>
+(async()=>{const grid=document.getElementById('grid');try{const res=await fetch('./catalog.json',{cache:'no-cache'});if(!res.ok)throw Error('作品一覧が見つかりません');const catalog=await res.json();const entries=await Promise.all((catalog.works||[]).map(async x=>{try{const r=await fetch('./'+x.file);if(!r.ok)throw Error();return {file:x.file,data:await r.json()}}catch(e){return null}}));grid.replaceChildren();for(const entry of entries.filter(Boolean)){const d=entry.data;const card=document.createElement('article');card.className='card';const cover=document.createElement('div');cover.className='cover';if(typeof d.coverImage==='string'&&d.coverImage.startsWith('data:image/')){const img=document.createElement('img');img.src=d.coverImage;img.alt=(d.title||'作品')+'の表紙';cover.append(img)}else cover.textContent='表紙準備中';const info=document.createElement('div');info.className='info';const title=document.createElement('h2');title.textContent=d.title||'無題';const meta=document.createElement('div');meta.className='meta';meta.textContent=(d.category||'漫才')+' ・ '+(d.lines?.length||0)+'セリフ';const desc=document.createElement('p');desc.className='desc';desc.textContent=d.description||'AIと漫才を演じよう。';const link=document.createElement('a');link.className='btn';link.textContent='台本をダウンロード';link.href='./'+entry.file;link.download=(d.id||'manzai')+'.json';info.append(title,meta,desc,link);card.append(cover,info);grid.append(card)}if(!grid.children.length)grid.textContent='公開作品がありません。'}catch(e){grid.textContent='作品一覧を読み込めませんでした。catalog.jsonの配置を確認してください。';console.error(e)}})();
+</script></body></html>
