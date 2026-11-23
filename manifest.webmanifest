@@ -2,8 +2,7 @@
   "id": "/",
   "name": "MICOLABO（ミコラボ）",
   "short_name": "MICOLABO",
-  "description": "台本とキャラクターを選んで、あなたもステージへ。AIとの掛け合いや紙芝居を、1人でもみんなでも無料で楽しめる参加型エンタメサービス。",
-  "lang": "ja",
+  "description": "AIと一緒に漫才・コント・紙芝居",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -11,16 +10,22 @@
   "theme_color": "#0b0b1c",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/icon-192.png?v=20261123b",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/icon-512.png?v=20261123b",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png?v=20261123b",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
